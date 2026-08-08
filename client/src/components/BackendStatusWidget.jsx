@@ -24,7 +24,7 @@ export default function BackendStatusWidget() {
       } else {
         setStatus({ backend: "offline", mongodb: "offline", ai: "offline" });
       }
-    } catch (err) {
+    } catch {
       setStatus({ backend: "offline", mongodb: "offline", ai: "offline" });
     } finally {
       setLoading(false);

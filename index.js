@@ -12,9 +12,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB Atlas
-connectDB();
-
 // Enable CORS and JSON body parsing middleware
 app.use(cors());
 app.use(express.json());
@@ -56,7 +53,7 @@ app.use((req, res) => {
 });
 
 // Global error handling middleware
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
   console.error("❌ Global Server Error:", err);
   res.status(500).json({
     error: "Internal Server Error",
@@ -64,35 +61,28 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start listening on configured port with error handling
-const server = app.listen(PORT, () => {
-  console.log(`==================================================`);
-  console.log(`🚀 HRFlow AI Backend Server live on port ${PORT}`);
-  console.log(`🟢 Health Check:     GET   http://localhost:${PORT}/health`);
-  console.log(`🔑 Auth Login:       POST  http://localhost:${PORT}/auth/login`);
-  console.log(`📝 Auth Register:    POST  http://localhost:${PORT}/auth/register`);
-  console.log(`👤 Auth Profile:     GET   http://localhost:${PORT}/auth/profile`);
-  console.log(`📄 Policy Upload:    POST  http://localhost:${PORT}/policy/upload`);
-  console.log(`📄 Policy Latest:    GET   http://localhost:${PORT}/policy/latest`);
-  console.log(`👥 Employee Mgmt:    GET   http://localhost:${PORT}/users/employees`);
-  console.log(`📩 Leave Workflow:    POST  http://localhost:${PORT}/leave`);
-  console.log(`💬 HR Chatbot:        POST  http://localhost:${PORT}/chat`);
-  console.log(`📋 All Requests:      GET   http://localhost:${PORT}/leave/requests`);
-  console.log(`📄 Single Request:    GET   http://localhost:${PORT}/leave/requests/:id`);
-  console.log(`✏️ Update Status:     PATCH http://localhost:${PORT}/leave/requests/:id/status`);
-  console.log(`📜 Audit Logs:        GET   http://localhost:${PORT}/auditlogs`);
-  console.log(`📧 Notifications:     GET   http://localhost:${PORT}/notifications`);
-  console.log(`📊 Analytics:         GET   http://localhost:${PORT}/analytics`);
-  console.log(`==================================================`);
-});
+// Connect to Database & Start Server
+async function startServer() {
+  await connectDB();
+  const server = app.listen(PORT, () => {
+    console.log(`==================================================`);
+    console.log(`🚀 HRFlow AI Backend Server live on port ${PORT}`);
+    console.log(`🟢 Health Check:     GET   http://localhost:${PORT}/health`);
+    console.log(`==================================================`);
+  });
 
-server.on("error", (err) => {
-  if (err.code === "EADDRINUSE") {
-    console.error(`❌ Port ${PORT} is already in use by another Node process.`);
-    console.error(`👉 Run: npx kill-port ${PORT} or kill the process using port ${PORT}.`);
-  } else {
-    console.error("❌ Server Error:", err);
-  }
-});
+  server.on("error", (err) => {
+    if (err.code === "EADDRINUSE") {
+      console.error(`❌ Port ${PORT} is already in use by another Node process.`);
+      console.error(`👉 Run: npx kill-port ${PORT} or kill the process using port ${PORT}.`);
+    } else {
+      console.error("❌ Server Error:", err);
+    }
+  });
+
+  return server;
+}
+
+await startServer();
 
 export default app;

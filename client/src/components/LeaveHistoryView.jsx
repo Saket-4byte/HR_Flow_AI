@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Search, Filter, Eye, CheckCircle, XCircle, Clock, Calendar, RefreshCw, Sparkles, AlertOctagon } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Search, Filter, Eye, CheckCircle, XCircle, Clock, Calendar, RefreshCw, Sparkles } from "lucide-react";
 import { getLeaveRequests, evaluateLeaveRequest } from "../services/api";
 import { SkeletonTable, ErrorState, EmptyState } from "./CommonUI";
 import AIProcessingScreen from "./AIProcessingScreen";
@@ -15,7 +15,7 @@ export default function LeaveHistoryView({ user, onViewDetails }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -34,11 +34,11 @@ export default function LeaveHistoryView({ user, onViewDetails }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.role, user?.id, user?.name]);
 
   useEffect(() => {
     fetchHistory();
-  }, [user]);
+  }, [fetchHistory]);
 
   const handleEvaluateAI = async (id) => {
     setEvaluatingId(id);

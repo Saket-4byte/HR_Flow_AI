@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Users, Search, RefreshCw, IdCard, Mail, Building, Clock, Calendar, Shield, Trash2, Edit2, RotateCcw, Filter } from "lucide-react";
+import { Search, RefreshCw, Building, Trash2, Edit2, RotateCcw, Filter } from "lucide-react";
 import { getEmployeeList, updateEmployee, deleteEmployee } from "../services/api";
 import { SkeletonTable, ErrorState, EmptyState } from "./CommonUI";
 

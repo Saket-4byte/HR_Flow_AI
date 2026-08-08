@@ -8,7 +8,6 @@ import {
   Mail,
   CheckCircle,
   XCircle,
-  AlertOctagon,
   ArrowLeft,
   ThumbsUp,
   ThumbsDown,
@@ -18,11 +17,11 @@ import {
 import { submitHRDecision } from "../services/api";
 
 export default function ExplainableAIPage({ requestData, userRole, onClose, onStatusUpdated }) {
-  if (!requestData) return null;
-
-  const [currentStatus, setCurrentStatus] = useState(requestData.status || "PENDING");
+  const [currentStatus, setCurrentStatus] = useState(requestData?.status || "PENDING");
   const [managerComments, setManagerComments] = useState("");
   const [updating, setUpdating] = useState(false);
+
+  if (!requestData) return null;
 
   const {
     _id,

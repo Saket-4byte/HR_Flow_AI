@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { MessageSquare, Send, Sparkles, X, Bot, User, RefreshCw } from "lucide-react";
+import { Send, Sparkles, X, Bot, User, RefreshCw } from "lucide-react";
 import { sendChatMessage } from "../services/api";
 
 export default function HRChatbotWidget() {
@@ -41,7 +41,7 @@ export default function HRChatbotWidget() {
         ...prev,
         { sender: "bot", text: response.reply || "Thank you for your inquiry." },
       ]);
-    } catch (err) {
+    } catch {
       setMessages((prev) => [
         ...prev,
         {

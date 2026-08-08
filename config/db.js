@@ -98,11 +98,21 @@ export async function connectDB() {
     console.log(`🍃 Connected to Local MongoDB: ${conn.connection.host} / ${conn.connection.name}`);
     await seedDefaultUsers();
     return conn;
-  } catch (localErr) {
-    console.error("❌ Local MongoDB Fallback Failed: Local MongoDB service is not running on 127.0.0.1:27017.");
-    console.error("💡 Action Required:");
-    console.error("   - Whitelist your current IP in MongoDB Atlas: https://cloud.mongodb.com");
-    console.error("   - OR install and start MongoDB locally.");
+  } catch {
+    console.log("🔄 Attempting fallback to In-Memory MongoDB Server...");
+  }
+
+  // Attempt 3: Fallback to In-Memory MongoDB
+  try {
+    const { MongoMemoryServer } = await import("mongodb-memory-server");
+    const mongoServer = await MongoMemoryServer.create();
+    const memoryURI = mongoServer.getUri();
+    const conn = await mongoose.connect(memoryURI);
+    console.log(`🍃 Connected to In-Memory MongoDB Server: ${memoryURI}`);
+    await seedDefaultUsers();
+    return conn;
+  } catch (memErr) {
+    console.error("❌ In-Memory MongoDB Fallback Failed:", memErr.message);
     return null;
   }
 }

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Mail, RefreshCw, Send, CheckCircle2 } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Mail, RefreshCw } from "lucide-react";
 import { getNotifications } from "../services/api";
 import { SkeletonTable, ErrorState, EmptyState } from "./CommonUI";
 
@@ -8,7 +8,7 @@ export default function NotificationsView({ user }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchNotificationsData = async () => {
+  const fetchNotificationsData = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -28,11 +28,11 @@ export default function NotificationsView({ user }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.role, user?.email]);
 
   useEffect(() => {
     fetchNotificationsData();
-  }, [user]);
+  }, [fetchNotificationsData]);
 
   return (
     <div className="space-y-4">

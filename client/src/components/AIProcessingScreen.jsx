@@ -68,7 +68,7 @@ export default function AIProcessingScreen({ onComplete, resultData }) {
     }, 700);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [steps.length, onComplete, resultData]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-2xl p-4">

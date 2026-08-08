@@ -6,9 +6,7 @@ import {
   ShieldCheck,
   Mail,
   User,
-  Sparkles,
   LogOut,
-  TrendingUp,
   FileText,
   Users
 } from "lucide-react";

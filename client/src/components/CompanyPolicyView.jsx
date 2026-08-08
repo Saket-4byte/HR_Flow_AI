@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { FileText, Upload, Sparkles, CheckCircle2, ShieldCheck, RefreshCw, AlertCircle, FileCheck, Layers } from "lucide-react";
+import { Upload, Sparkles, CheckCircle2, ShieldCheck, RefreshCw, AlertCircle, FileCheck } from "lucide-react";
 import { getLatestPolicy, uploadCompanyPolicy } from "../services/api";
-import { SkeletonCard, ErrorState } from "./CommonUI";
+import { SkeletonCard } from "./CommonUI";
 
 export default function CompanyPolicyView() {
   const [policy, setPolicy] = useState(null);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { User, Mail, ShieldCheck, Building, Clock, Flame, Calendar, RefreshCw } from "lucide-react";
+import { ShieldCheck, Building, Clock, Calendar } from "lucide-react";
 import { getUserProfile } from "../services/api";
 import { SkeletonCard, ErrorState } from "./CommonUI";
 

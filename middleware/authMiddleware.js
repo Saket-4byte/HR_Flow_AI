@@ -26,8 +26,8 @@ export async function protect(req, res, next) {
 
       if (!req.user && decoded.id && decoded.role) {
         req.user = {
-          _id: decoded.id,
-          id: decoded.id,
+          _id: decoded._id || decoded.id,
+          id: decoded.id || decoded._id,
           role: decoded.role,
           name: decoded.name || "Authenticated User",
           email: decoded.email || "user@company.com",

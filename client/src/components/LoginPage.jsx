@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Lock, Mail, Sparkles, LogIn, AlertCircle, ShieldCheck, UserCheck, UserPlus, IdCard, Building } from "lucide-react";
+import { Lock, Mail, LogIn, AlertCircle, ShieldCheck, UserCheck, UserPlus, IdCard, Building } from "lucide-react";
 import { loginUser, registerEmployee } from "../services/api";
 
 export default function LoginPage({ onLoginSuccess }) {

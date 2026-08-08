@@ -6,12 +6,24 @@ import { protect } from "../middleware/authMiddleware.js";
 const router = Router();
 
 /**
- * Generate JWT token
+ * Generate JWT token containing user id, role, name, email, department
  */
-function generateToken(id, role) {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET || "hrflow_ai_jwt_secret_key_2026", {
-    expiresIn: "30d",
-  });
+function generateToken(user, roleOverride) {
+  let role = roleOverride;
+  if (!role && typeof user === "object" && user !== null) {
+    role = user.role || user._doc?.role;
+  }
+  let rawId = typeof user === "object" && user !== null ? (user._id || user.id) : user;
+  const id = rawId ? rawId.toString() : null;
+  const name = typeof user === "object" && user !== null ? user.name : "Authenticated User";
+  const email = typeof user === "object" && user !== null ? user.email : "user@company.com";
+  const department = typeof user === "object" && user !== null ? user.department : "Engineering";
+
+  return jwt.sign(
+    { id, _id: id, role: role || "employee", name, email, department },
+    process.env.JWT_SECRET || "hrflow_ai_jwt_secret_key_2026",
+    { expiresIn: "30d" }
+  );
 }
 
 /**
@@ -51,7 +63,7 @@ router.post("/register", async (req, res) => {
       weekendWork: 0,
     });
 
-    const token = generateToken(user._id, user.role);
+    const token = generateToken(user);
 
     return res.status(201).json({
       message: "Employee registered successfully!",
@@ -89,7 +101,7 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email: email.toLowerCase().trim() });
 
     if (user && (await user.matchPassword(password))) {
-      const token = generateToken(user._id, user.role);
+      const token = generateToken(user);
 
       return res.status(200).json({
         token,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ShieldAlert, RefreshCw, FileText, CheckCircle, Clock } from "lucide-react";
+import { ShieldAlert, RefreshCw } from "lucide-react";
 import { getAuditLogs } from "../services/api";
 import { SkeletonTable, ErrorState, EmptyState } from "./CommonUI";
 

@@ -65,11 +65,12 @@ async function makeRequest(path, method = "GET", token = null, body = null) {
     headers["Content-Type"] = "application/json";
   }
 
-  const response = await fetch(`${baseUrl}${path}`, {
-    method,
-    headers,
-    body: body ? JSON.stringify(body) : undefined,
-  });
+  const options = { method, headers };
+  if (method !== "GET" && method !== "HEAD" && body) {
+    options.body = JSON.stringify(body);
+  }
+
+  const response = await fetch(`${baseUrl}${path}`, options);
 
   const json = await response.json().catch(() => ({}));
   return { status: response.status, body: json };

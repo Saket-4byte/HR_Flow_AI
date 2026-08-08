@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Users, Clock, CheckCircle, XCircle, Activity, Eye, Calendar, Sparkles, TrendingUp, PieChart, FileText } from "lucide-react";
+import { Users, Clock, CheckCircle, XCircle, Activity, Eye, Sparkles, TrendingUp, PieChart, FileText } from "lucide-react";
 import { getAnalytics, getLeaveRequests, evaluateLeaveRequest } from "../services/api";
 import { SkeletonCard, SkeletonTable, ErrorState, EmptyState } from "./CommonUI";
 import BackendStatusWidget from "./BackendStatusWidget";
