@@ -12,7 +12,8 @@
     "lint": "npx oxlint agents/ config/ graph/ middleware/ models/ prompts/ routes/ services/ tests/ tools/ index.js && npm run lint --prefix client",
     "lint:backend": "npx oxlint agents/ config/ graph/ middleware/ models/ prompts/ routes/ services/ tests/ tools/ index.js",
     "lint:frontend": "npm run lint --prefix client",
-    "build": "npm run build --prefix client"
+    "build": "node scripts/build.js",
+    "build:client": "npm run build --prefix client"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",

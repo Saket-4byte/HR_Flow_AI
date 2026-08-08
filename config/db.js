@@ -53,6 +53,8 @@ async function seedDefaultUsers() {
   }
 }
 
+let mongoServerInstance = null;
+
 /**
  * Connects to MongoDB Atlas using Mongoose.
  */
@@ -105,8 +107,8 @@ export async function connectDB() {
   // Attempt 3: Fallback to In-Memory MongoDB
   try {
     const { MongoMemoryServer } = await import("mongodb-memory-server");
-    const mongoServer = await MongoMemoryServer.create();
-    const memoryURI = mongoServer.getUri();
+    mongoServerInstance = await MongoMemoryServer.create();
+    const memoryURI = mongoServerInstance.getUri();
     const conn = await mongoose.connect(memoryURI);
     console.log(`🍃 Connected to In-Memory MongoDB Server: ${memoryURI}`);
     await seedDefaultUsers();
@@ -114,6 +116,19 @@ export async function connectDB() {
   } catch (memErr) {
     console.error("❌ In-Memory MongoDB Fallback Failed:", memErr.message);
     return null;
+  }
+}
+
+/**
+ * Disconnects Mongoose and stops In-Memory Mongo Server if running
+ */
+export async function disconnectDB() {
+  if (mongoose.connection && mongoose.connection.readyState !== 0) {
+    await mongoose.disconnect();
+  }
+  if (mongoServerInstance) {
+    await mongoServerInstance.stop();
+    mongoServerInstance = null;
   }
 }
 

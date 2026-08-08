@@ -4,7 +4,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import http from "node:http";
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
+import { disconnectDB } from "../config/db.js";
 import app from "../index.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "hrflow_ai_jwt_secret_key_2026";
@@ -52,9 +52,7 @@ test.after(async () => {
   if (server) {
     await new Promise((resolve) => server.close(resolve));
   }
-  if (mongoose.connection && mongoose.connection.readyState !== 0) {
-    await mongoose.disconnect();
-  }
+  await disconnectDB();
 });
 
 /**
