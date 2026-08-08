@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js",
-    "test": "node --test tests/rbac.test.js",
+    "test": "node --test --test-timeout=30000 tests/rbac.test.js",
     "test:e2e": "playwright test",
     "lint": "npx oxlint agents/ config/ graph/ middleware/ models/ prompts/ routes/ services/ tests/ tools/ index.js && npm run lint --prefix client",
     "lint:backend": "npx oxlint agents/ config/ graph/ middleware/ models/ prompts/ routes/ services/ tests/ tools/ index.js",

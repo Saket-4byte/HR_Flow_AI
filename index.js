@@ -83,6 +83,8 @@ async function startServer() {
   return server;
 }
 
-await startServer();
+if (process.env.NODE_ENV !== "test") {
+  await startServer();
+}
 
 export default app;
