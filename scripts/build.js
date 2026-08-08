@@ -81,8 +81,12 @@ console.log("✅ Frontend linting clean (0 errors, 0 warnings).");
 
 // 4. Unit & Security Tests
 logStep(4, 6, "Executing Backend Security & RBAC Unit Tests");
-runCommand("node --test --test-timeout=30000 tests/rbac.test.js");
-console.log("✅ All RBAC unit tests passed.");
+if (process.env.SKIP_TESTS === "true" || process.env.SKIP_TESTS === "1") {
+  console.log("⏩ Skipping unit tests (SKIP_TESTS environment variable is set).");
+} else {
+  runCommand("node --test --test-timeout=30000 tests/rbac.test.js");
+  console.log("✅ All RBAC unit tests passed.");
+}
 
 // 5. Frontend Production Bundle Compilation
 logStep(5, 6, "Compiling React Frontend Production Assets (Vite build)");
