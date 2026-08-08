@@ -1,0 +1,34 @@
+{
+  "name": "hr-flow-ai",
+  "version": "1.0.0",
+  "description": "Production-ready AI backend for HR Management System using Express, LangGraph, and Google Gemini 2.5 Flash",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "node --test tests/rbac.test.js"
+  },
+  "keywords": [
+    "hr",
+    "ai",
+    "langgraph",
+    "gemini",
+    "express"
+  ],
+  "author": "HRFlow AI Team",
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^0.2.0",
+    "@langchain/core": "^0.3.36",
+    "@langchain/google-genai": "^0.1.8",
+    "@langchain/langgraph": "^0.2.40",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.9.1",
+    "multer": "^2.2.0"
+  }
+}

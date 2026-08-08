@@ -1,0 +1,31 @@
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+client/node_modules/
+
+# Build Outputs
+dist/
+client/dist/
+build/
+
+# Testing & Coverage
+coverage/
+playwright-report/
+test-results/
+
+# Logs
+*.log
+logs/
+
+# Operating System & Editor Files
+.DS_Store
+Thumbs.db
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
