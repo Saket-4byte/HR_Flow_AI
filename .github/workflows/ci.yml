@@ -28,10 +28,10 @@ jobs:
           cache: 'npm'
 
       - name: 3. Install Backend Dependencies
-        run: npm ci
+        run: npm install
 
       - name: 4. Install Frontend Dependencies
-        run: npm ci --prefix client
+        run: npm install --prefix client
 
       - name: 5. Run Backend Static Analysis & Linting
         run: npm run lint:backend
